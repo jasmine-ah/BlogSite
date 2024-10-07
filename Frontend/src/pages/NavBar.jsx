@@ -12,7 +12,7 @@ function NavBar(){
     <li className='p-4 hover:text-xl'><Link to="/">About</Link></li>
     <li className='p-4 hover:text-xl'><Link to="/">Services</Link></li>
     <li className='p-4 hover:text-xl'><Link to="/">Contact</Link></li>
-    <Link to="/signup" className='text-center pt-3 px-2 hover:bg-[#3a5b64] bg-[#00c7ab] text-white rounded'>SignUp</Link>
+    <Link to="/signup" className='text-center pt-3 px-2 hover:bg-[#039f8e] bg-[#00c7ab] text-white rounded'>SignUp</Link>
     </ul>
     </div>
 </header>
