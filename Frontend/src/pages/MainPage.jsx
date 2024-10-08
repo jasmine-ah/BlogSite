@@ -5,16 +5,23 @@ function MainPage(){
 return(
     <div className='text-[#00c7ab] bg-[#f1f1f1] font-light'>
 {/************************************  hero section ********************************************/}
-<section id="hero" className='h-[730px] flex justify-between'>
-    <div className='py-[200px] px-[80px]'>
-<h1 className='text-7xl font-bold text-left'>Discover <span className='text-[#3a5b64]'>Your</span> Voice </h1>
-<p className='text-2xl text-[#3a5b64] py-4 px-4'>Empower Your Story Through Blogging</p>
-<button className='px-6 py-3 mx-[90px] my-4 text-xl font-semibold text-[#3a5b64] hover:text-white bg-gradient-to-br from-[#00c7ab] to-[#ede8f5] rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1'>
-    Get Started
-</button>
-</div>
-<img src="BlogPost.png" alt="/" className='h-[730px] px-10'/>
+<section id="hero" className="flex flex-col md:flex-row h-auto md:h-[730px]">
+  <div className="flex flex-col justify-center items-start py-10 md:py-20 px-6 md:px-20 md:w-1/2">
+    <h1 className="text-5xl md:text-7xl font-bold text-left">
+      Discover <span className="text-[#3a5b64]">Your</span> Voice
+    </h1>
+    <p className="text-lg md:text-2xl text-[#3a5b64] py-4">
+      Empower Your Story Through Blogging
+    </p>
+    <button className="hidden sm:hidden md:flex px-6 py-3 my-4 text-lg md:text-xl font-semibold text-[#3a5b64] hover:text-white bg-gradient-to-br from-[#00c7ab] to-[#ede8f5] rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+      Get Started
+    </button>
+  </div>
+  <div className="flex justify-center items-center md:w-1/2">
+    <img src="BlogPost.png" alt="Blog Post" className="h-auto max-w-full" />
+  </div>
 </section>
+
 
 {/***************************************  About section ********************************************/}
 <section id='About' className='h-[600px] bg-gradient-to-br from-[#04cbae] via-[#3a5b64] to-[#f1f1f1] text-[#3a5b64] flex flex-col items-center justify-center px-8'>
@@ -33,6 +40,42 @@ return(
     </p>
     </div>
 </section>
+
+{/* **************************************  Services Section  ****************************************** */}
+<section id="services" className="py-[150px] bg-white text-center">
+        <div className="max-w-7xl mx-auto">
+        <h2 className="text-4xl font-bold text-[#04cbae] mb-12">
+            Our Services
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+            
+            <div className="service-card p-8 bg-[#f1f1f1] shadow-lg rounded-lg transition duration-500 transform hover:-translate-y-2 hover:shadow-2xl">
+            <i className="fas fa-pen-nib text-6xl text-[#04cbae] mb-4"></i>
+            <h3 className="text-2xl font-semibold text-[#3a5b64] mb-2">Creative Writing</h3>
+            <p className="text-[#3a5b64]">
+                Unleash your creativity with our intuitive writing tools and create stories that inspire and connect with others.
+            </p>
+            </div>
+
+            <div className="service-card p-8 bg-[#f1f1f1] shadow-lg rounded-lg transition duration-500 transform hover:-translate-y-2 hover:shadow-2xl">
+            <i className="fas fa-laptop-code text-6xl text-[#04cbae] mb-4"></i>
+            <h3 className="text-2xl font-semibold text-[#3a5b64] mb-2">Tech & Development</h3>
+            <p className="text-[#3a5b64]">
+                Stay updated with the latest trends in technology and learn how to develop cutting-edge software solutions.
+            </p>
+            </div>
+
+            <div className="service-card p-8 bg-[#f1f1f1] shadow-lg rounded-lg transition duration-500 transform hover:-translate-y-2 hover:shadow-2xl">
+            <i className="fas fa-chart-line text-6xl text-[#04cbae] mb-4"></i>
+            <h3 className="text-2xl font-semibold text-[#3a5b64] mb-2">Marketing & Growth</h3>
+            <p className="text-[#3a5b64]">
+                Learn the best marketing strategies to grow your personal brand or business with actionable insights and advice.
+            </p>
+            </div>
+        </div>
+        </div>
+    </section>
+
 
 {/***************************************  Contact section ********************************************/}
 <section id='contact' className='h-[500px] bg-gradient-to-br from-[#f1f1f1] to-[#e2e2e2] flex flex-col items-center justify-center px-8'>
@@ -55,7 +98,7 @@ return(
 </section>
 
 {/***************************************  Footer section ********************************************/}
-<footer className='bg-[#3a5b64] text-[#f1f1f1] py-8'>
+<footer id="footer" className='bg-[#3a5b64] text-[#f1f1f1] py-8'>
     <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center'>
     <div className='mb-6 md:mb-0 text-center md:text-left'>
     <h3 className='text-2xl font-bold text-[#04cbae]'>BlogSite</h3>

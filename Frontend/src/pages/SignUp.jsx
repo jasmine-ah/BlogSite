@@ -1,11 +1,20 @@
 import React,{useState} from "react";
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 function SignUp(){
     const [name,setName]=useState()
     const [email,setEmail]=useState()
     const [password,setPassword]=useState()
+    const Navigate=useNavigate()
 const handleSubmit=(e)=>{
-    e.preventDefault
+    e.preventDefault()
+    axios.post('http://localhost:3001/signup',{name,email,password})
+    .then(result=>{console.log(result)
+        Navigate('/login')
+        alert('Succesfully registered!')
+    })
+    .catch(err=>console.log(err))
 }
 return(
 <section className='min-h-screen flex items-center justify-center bg-[#f1f1f1] px-4'>
@@ -14,20 +23,20 @@ return(
     <form onSubmit={handleSubmit} className='space-y-6'>
     <div>
         <label htmlFor='name' className='block text-sm font-medium text-gray-700'>Full Name</label>
-        <input id='name' name='name' type='text' required onChange={(e)=> setName(e.target.value)} className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-[#04cbae] focus:border-[#04cbae]'/>
+        <input id='name' name='name' type='text' required onChange={(e)=> setName(e.target.value)} className='mt-1 block w-full px-4 py-2 border-b border-[#04cbae] rounded-lg shadow-sm focus:ring-[#04cbae] focus:border-[#04cbae]'/>
     </div>
     <div>
         <label htmlFor='email' className='block text-sm font-medium text-gray-700'>Email Address</label>
-        <input id='email' name='email' type='email' required onChange={(e)=> setEmail(e.target.value)} className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-[#04cbae] focus:border-[#04cbae]'/>
+        <input id='email' name='email' type='email' required onChange={(e)=> setEmail(e.target.value)} className='mt-1 block w-full px-4 py-2 border-b border-[#04cbae] rounded-lg shadow-sm focus:ring-[#04cbae] focus:border-[#04cbae]'/>
     </div>
     <div>
         <label htmlFor='password' className='block text-sm font-medium text-gray-700'>Password</label>
-        <input id='password' name='password' type='password' required onChange={(e)=> setPassword(e.target.value)} className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-[#04cbae] focus:border-[#04cbae]'/>
+        <input id='password' name='password' type='password' required onChange={(e)=> setPassword(e.target.value)} className='mt-1 block w-full px-4 py-2 border-b border-[#04cbae] rounded-lg shadow-sm focus:ring-[#04cbae] focus:border-[#04cbae]'/>
     </div>
 
     <div>
         <label htmlFor='confirm-password' className='block text-sm font-medium text-gray-700'>Confirm Password</label>
-        <input id='confirm-password' name='confirm-password' type='password' required className='mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-[#04cbae] focus:border-[#549289]'/>
+        <input id='confirm-password' name='confirm-password' type='password' required className='mt-1 block w-full px-4 py-2 border-b border-[#04cbae] rounded-lg shadow-sm focus:ring-[#04cbae] focus:border-[#549289]'/>
     </div>
     <button type='submit' className='w-full bg-[#04cbae] text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-[#039f8e] transition duration-300'>Sign Up</button>
     <p className='text-sm text-center text-gray-600 mt-4'>
