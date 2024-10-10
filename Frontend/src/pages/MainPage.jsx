@@ -1,6 +1,6 @@
 import React from 'react'
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
+import { Link } from 'react-router-dom';
 function MainPage(){
 return(
     <div className='text-[#00c7ab] bg-[#f1f1f1] font-light'>
@@ -13,9 +13,11 @@ return(
     <p className="text-lg md:text-2xl text-[#3a5b64] py-4">
       Empower Your Story Through Blogging
     </p>
+    <Link to="/signup">
     <button className="hidden sm:hidden md:flex px-6 py-3 my-4 text-lg md:text-xl font-semibold text-[#3a5b64] hover:text-white bg-gradient-to-br from-[#00c7ab] to-[#ede8f5] rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
       Get Started
     </button>
+    </Link>
   </div>
   <div className="flex justify-center items-center md:w-1/2">
     <img src="BlogPost.png" alt="Blog Post" className="h-auto max-w-full" />

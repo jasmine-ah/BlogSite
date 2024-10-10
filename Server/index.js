@@ -56,34 +56,6 @@ app.post('/signup', async(req, res) => {
         });
 });
 
-/////////// login route  //////////////
-
-// app.post("/login",(req,res)=>{
-//     const{email,password}=req.body;
-//     isMatch(password===password)
-//     BlogSiteModel.findOne({email:email})
-//     .then(user=>{
-//         if(user){
-//             if(user.password===password){
-//                 // res.json("Success");
-//                 res.json({
-//                     // token,
-//                     name: user.name,
-//                     id: user._id,
-//                 });
-//             }
-//             else{
-//                 res.send("the password is incorrect")
-//             }
-//         }
-//         else{
-//             res.send("the user doesnot exist")
-//         }
-//     })
-// });
-
-
-
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
@@ -98,9 +70,7 @@ app.post("/login", async (req, res) => {
 
         if (!isPasswordValid) {
             return res.status(401).json({ message: "Invalid password" });
-        }
-
-        
+        } 
         res.json({
             name: user.name,
             _id: user._id,
