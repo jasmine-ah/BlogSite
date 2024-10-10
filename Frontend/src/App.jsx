@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp.jsx';
 import Login from './pages/Login.jsx';
 import Blogpost from './pages/Blogpost.jsx';
 import DisplayPost from './pages/Displaypost.jsx';
+import MyBlog from './pages/MyBlog.jsx';
 
 function App() {
 return(
@@ -18,6 +19,7 @@ return(
     <Route path="/login" element={<Login/>}/>
     <Route path="/displaypost" element={<DisplayPost/>}/>
     <Route path="/blogpost" element={<Blogpost/>}/>
+    <Route path="/myblog" element={<MyBlog/>}/>
     <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   </div>

@@ -11,13 +11,23 @@ const handleSubmit=(e)=>{
     e.preventDefault()
     axios.post('http://localhost:3001/login',{email,password})
     .then(result=>{console.log(result)
-        if(result.data==="Success"){
+        if(result.status===200){
             localStorage.setItem('token', result.data.token);
             localStorage.setItem('name', result.data.name);
-            Navigate('/displaypost')
+            localStorage.setItem('email', result.data.email);
+            Navigate('/myblog')
         }
+        else {
+            alert('Incorrect credentials!!!Please insert again');
+        }
+    
     })
-    .catch(err=>console.log(err))
+    .catch(err=>{
+        //console.error('Error:', err.response?.data || err.message);
+        alert('Incorrect credentials!!!Please insert again');
+
+    });
+        //console.log(err))
 }
 
     return(
@@ -35,8 +45,7 @@ const handleSubmit=(e)=>{
     </div>
     <button type='submit' className='w-full bg-[#04cbae] text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-[#039f8e] transition duration-300'>Login</button>
     <p className='text-sm text-center text-gray-600 mt-4'>
-        Don't have an account?{' '}
-        <Link to='/signup' className='text-[#04cbae] hover:text-[#039f8e] transition duration-300'>Sign up</Link>
+        Don't have an account?{' '}<Link to='/signup' className='text-[#04cbae] hover:text-[#039f8e] transition duration-300'>Sign up</Link>
     </p>
     </form>
 </div>

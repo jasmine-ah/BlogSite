@@ -4,6 +4,7 @@ const cors = require("cors");
 const BlogSiteModel = require("./models/BlogSite");
 const BlogPostModel= require("./models/BlogPost");
 const app = express();
+const bcrypt=require('bcryptjs');
 
 const corsOptions = {
     origin: 'http://localhost:5173',
@@ -28,21 +29,26 @@ mongoose.connect("mongodb://localhost:27017/BlogSite")
     .catch(err => console.log("MongoDB connection error:", err));
 
 
-///////// singup route  ////////////
+///////// signup route  ////////////
 
 app.get('/signup', (req, res) => {
     res.status(405).json({ message: "GET method not allowed. Use POST instead." });
 });
 
 
-app.post('/signup', (req, res) => {
+app.post('/signup', async(req, res) => {
     const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
         return res.status(400).json({ message: "name, email, and password are required" });
     }
 
-    BlogSiteModel.create({ name, email, password })
+
+    const salt=await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+
+    BlogSiteModel.create({ name, email, password: hashedPassword })
         .then(user => res.json(user))
         .catch(err => {
             console.error("Signup error:", err);
@@ -52,22 +58,57 @@ app.post('/signup', (req, res) => {
 
 /////////// login route  //////////////
 
-app.post("/login",(req,res)=>{
-    const{email,password}=req.body;
-    BlogSiteModel.findOne({email:email})
-    .then(user=>{
-        if(user){
-            if(user.password===password){
-                res.json("Success")
-            }
-            else{
-                res.json("the password is incorrect")
-            }
+// app.post("/login",(req,res)=>{
+//     const{email,password}=req.body;
+//     isMatch(password===password)
+//     BlogSiteModel.findOne({email:email})
+//     .then(user=>{
+//         if(user){
+//             if(user.password===password){
+//                 // res.json("Success");
+//                 res.json({
+//                     // token,
+//                     name: user.name,
+//                     id: user._id,
+//                 });
+//             }
+//             else{
+//                 res.send("the password is incorrect")
+//             }
+//         }
+//         else{
+//             res.send("the user doesnot exist")
+//         }
+//     })
+// });
+
+
+
+app.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await BlogSiteModel.findOne({ email: email });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
         }
-        else{
-            res.json("the user doesnot exist")
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: "Invalid password" });
         }
-    })
+
+        
+        res.json({
+            name: user.name,
+            _id: user._id,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
 });
 
 //////// create blog///////////
@@ -88,35 +129,69 @@ app.post("/blogpost",(req,res)=>{
 
 ////////////display posts/////////////
 
-app.get('/blogpost', (req, res) => {
+app.get('/blogpost/all', (req, res) => {
     BlogPostModel.find({})
-      .then(posts => {
-        // Sort the posts by creation date (newest first)
+    .then(posts => {
         const sortedPosts = posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-  
-        // Send all posts as JSON response
         res.json(sortedPosts);
-      })
-      .catch(err => {
+    })
+    .catch(err => {
         console.error("Error fetching posts:", err);
         res.status(500).json({ message: "Failed to retrieve posts" });
-      });
-  });
-  
+    });
+});
 
-  
-  // DELETE route for removing individual posts
-  app.delete('/blogpost/:title', async (req, res) => {
+
+app.get('/blogpost/:name', async (req, res) => {
     try {
-      const post = await BlogPost.findByIdAndRemove(req.params.title);
-      if (!post) {
-        return res.status(404).json({ message: 'Post not found' });
-      }
-      res.status(200).json({ message: 'Post deleted successfully' });
-    } catch (err) {
-      res.status(500).json({ message: err.message });
+        const { name } = req.params;
+        console.log("Fetching posts for author:", name);  
+
+        const posts = await BlogPostModel.find({ author: name })
+            .sort({ createdAt: -1 });
+
+        if (posts.length === 0) {
+            console.log("No posts found for this author.");
+        } else {
+            console.log("Posts found:", posts);
+        }
+
+        res.status(200).json(posts);
+    } catch (error) {
+        console.error("Error fetching blog posts:", error);
+        res.status(500).json({ error: "Failed to fetch blog posts" });
     }
-  });
+});
+
+
+const router = express.Router();
+
+app.delete('/blogpost/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        
+        
+        if (!mongoose.isValidObjectId(id)) {
+            return res.status(400).json({ message: 'Invalid ID format' });
+        }
+
+        
+        const post = await BlogPostModel.findByIdAndDelete(id);
+        
+        if (!post) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        res.status(200).json({ message: 'Post deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting post:', err.message);
+        res.status(500).json({ message: 'An error occurred while processing your request' });
+    }
+});
+
+module.exports = router;
+
+
 
 app.listen(3001, () => {
     console.log("Server is running on port 3001");

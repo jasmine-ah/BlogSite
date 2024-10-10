@@ -1,6 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import {Link,useLocation} from 'react-router-dom'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { HashLink } from 'react-router-hash-link';
+
 
 function NavBar(){
 const [nav, setNav] = useState(false);
@@ -16,10 +18,10 @@ setNav(!nav);
     <h1 className='w-full text-3xl font-bold text-[#00c7ab]'>BlogSite.</h1>
 <ul className='hidden sm:hidden md:flex'>
     <li className='p-4 hover:text-xl'><Link to="/">Home</Link></li>
-    <li className='p-4 hover:text-xl'><Link to="/">Blog</Link></li>
-    <li className='p-4 hover:text-xl'><a href="#About">About</a></li>
-    <li className='p-4 hover:text-xl'><a href="#services">Services</a></li>
-    <li className='p-4 hover:text-xl'><a href="#footer">Contact</a></li>
+    {/* <li className='p-4 hover:text-xl'><Link to="/">Blog</Link></li> */}
+    <li className='p-4 hover:text-xl'><HashLink to="/#About">About</HashLink></li>
+    <li className='p-4 hover:text-xl'><HashLink to="/#services">Services</HashLink></li>
+    <li className='p-4 hover:text-xl'><HashLink to="/#footer">Contact</HashLink></li>
     <Link to="/signup" className='text-center pt-3 px-2 hover:bg-[#039f8e] bg-[#00c7ab] text-white rounded'>SignUp</Link>
     </ul>
     </div>
@@ -31,7 +33,7 @@ setNav(!nav);
         <h1 className='w-full text-2xl m-6 font-semibold text-[#00c7ab]'>BlogSite.</h1>
         <ul className='uppercase'>
         <li className='p-4 border-b border-[#00c7ab] hover:text-white hover:bg-[#00c7ab]'><Link to="/" onClick={handleNav}>Home</Link></li>
-        <li className='p-4 border-b border-[#00c7ab] hover:text-white hover:bg-[#00c7ab]'><Link to="/" onClick={handleNav}>Blog</Link></li>
+        {/* <li className='p-4 border-b border-[#00c7ab] hover:text-white hover:bg-[#00c7ab]'><Link to="/" onClick={handleNav}>Blog</Link></li> */}
         <li className='p-4 border-b border-[#00c7ab] hover:text-white hover:bg-[#00c7ab]'><a href="#About" onClick={handleNav}>About</a></li>
         <li className='p-4 border-b border-[#00c7ab] hover:text-white hover:bg-[#00c7ab]'><a href="#services" onClick={handleNav}>Services</a></li>
         <li className='p-4 border-b border-[#00c7ab] hover:text-white hover:bg-[#00c7ab]'><a href="#footer" onClick={handleNav}>Contact</a></li>

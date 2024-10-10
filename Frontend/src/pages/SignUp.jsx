@@ -9,7 +9,7 @@ function SignUp(){
     const Navigate=useNavigate()
 const handleSubmit=(e)=>{
     e.preventDefault()
-    axios.post('http://localhost:3001/signup',{name,email,password})
+        axios.post('http://localhost:3001/signup',{name,email,password})
     .then(result=>{console.log(result)
         Navigate('/login')
         alert('Succesfully registered!')
