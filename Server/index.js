@@ -38,10 +38,16 @@ app.get('/signup', (req, res) => {
 
 app.post('/signup', async(req, res) => {
     const { name, email, password } = req.body;
+    const existingUser=await BlogSiteModel.findOne({email:email});
+
+    if(existingUser){
+        return res.status(401).json({ message: "Invalid password" });
+    }
 
     if (!name || !email || !password) {
         return res.status(400).json({ message: "name, email, and password are required" });
     }
+
 
 
     const salt=await bcrypt.genSalt(10);
