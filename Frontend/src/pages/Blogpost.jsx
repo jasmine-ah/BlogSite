@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import API_URL from "../apiConfig";
 function BlogPost() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
@@ -21,7 +21,7 @@ function BlogPost() {
         }
 
         try {
-            await axios.post('http://localhost:3001/blogpost', { title, content, author: name }, {
+            await axios.post(`${API_URL}/blogpost`, { title, content, author: name }, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             alert("Blog post submitted successfully!");

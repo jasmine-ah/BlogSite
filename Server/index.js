@@ -7,7 +7,7 @@ const app = express();
 const bcrypt=require('bcryptjs');
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173','https://blog-site-orcin-six.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -23,8 +23,8 @@ app.use((req, res, next) => {
     next();
 });
 
-
-mongoose.connect("mongodb://localhost:27017/BlogSite")
+// mongoose.connect("mongodb+srv://yasminip30:uQgayW0xUWSIHh5n@project1.yznre.mongodb.net/BlogSite")
+mongoose.connect("mongodb+srv://yasminip30:uQgayW0xUWSIHh5n@project1.yznre.mongodb.net/BlogSite")
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log("MongoDB connection error:", err));
 

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FaLongArrowAltRight, FaPlus, FaTrashAlt } from 'react-icons/fa';
-
+import API_URL from "../apiConfig";
 function MyBlog() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,7 +24,7 @@ function MyBlog() {
     const fetchPosts = async () => {
         try {
             console.log("Fetching posts for author:", name);
-            const response = await axios.get(`http://localhost:3001/blogpost/${name}`);
+            const response = await axios.get(`${API_URL}/${name}`);
             console.log("Response received:", response.data);
             setPosts(response.data);
         } catch (error) {
@@ -51,7 +51,7 @@ function MyBlog() {
 
     const handleDelete = async (postId) => {
         try {
-            await axios.delete(`http://localhost:3001/blogpost/${postId}`);
+            await axios.delete(`${API_URL}/blogpost/${postId}`);
             setPosts(prevPosts => prevPosts.filter(post => post._id.toString() !== postId));
             alert("Post deleted successfully");
         } catch (error) {

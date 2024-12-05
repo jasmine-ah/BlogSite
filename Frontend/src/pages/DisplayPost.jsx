@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FaLongArrowAltLeft, FaPlus, FaSignOutAlt, FaTrashAlt } from 'react-icons/fa';
 import { motion } from "framer-motion";
-
+import API_URL from "../apiConfig";
 function DisplayPost() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,7 +16,7 @@ function DisplayPost() {
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/blogpost/all');
+            const response = await axios.get(`${API_URL}/blogpost/all`);
             setPosts(response.data);
             setLoading(false);
         } catch (error) {

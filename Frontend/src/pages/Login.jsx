@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {useNavigate}from 'react-router-dom';
+import API_URL from "../apiConfig";
 function Login(){
 const [email,setEmail]=useState();
 const [password,setPassword]=useState();
@@ -9,7 +10,7 @@ const Navigate=useNavigate();
 
 const handleSubmit=(e)=>{
     e.preventDefault()
-    axios.post('http://localhost:3001/login',{email,password})
+    axios.post(`${API_URL}/login`,{email,password})
     .then(result=>{console.log(result)
         if(result.status===200){
             localStorage.setItem('token', result.data.token);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
+import API_URL from "../apiConfig";
 function SignUp() {
     const Navigate = useNavigate();
 
@@ -42,7 +42,7 @@ function SignUp() {
             return;
         }
 
-        axios.post('http://localhost:3001/signup', formData)
+        axios.post(`${API_URL}/signup`, formData)
             .then(result => {
                 console.log(result);
                 Navigate('/login');
