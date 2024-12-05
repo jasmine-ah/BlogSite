@@ -17,9 +17,9 @@ function SignUp() {
 
     const validateForm = () => {
         const errors = {};
-        // if (!formData.name || !/^[A-Z]{2}[ -][0-9]{1,2}(?: [A-Z])?(?: [A-Z]*)? [0-9]{4}$/.test(formData.name)) {
-        //     errors.name = 'Invalid name';
-        // }
+        if (!formData.name.trim()) {
+            errors.name = 'Name is required';
+        }
         if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
             errors.email = 'Invalid email address';
         }
